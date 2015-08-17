@@ -15,6 +15,9 @@ class PySlackbot:
             channel.append(match['channel'])
         print(channel)
 
+    def send_message(self, text):
+        self.events['message'] = send_message_inner
+
     def registerEvent(typename, func):
         self.events[typename] = func
 
@@ -28,11 +31,11 @@ class PySlackbot:
 
 ## Common methods
 
-def send_message(resp, client, text):
+def send_message_inner(resp, client, text):
     channel = resp['channel']
     client.chat.post_message(channel, text)
 
-def upload_file(resp, client, path):
+def upload_file_inner(resp, client, path):
     channel = resp['channel']
     client.files.upload(path)
 
